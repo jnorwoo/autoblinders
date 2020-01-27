@@ -64,7 +64,7 @@ void loop()
         Serial.println("recieving data from web browser trigger");
         trigger1 = 1;
       }
-      String webpage = "<html><head><style>.button { background-color: #1c87c9; border: none;color: white;padding: 20px 34px;text-align: center; text-decoration: none;display: inline-block; font-size: 20px;margin: 4px 2px;cursor: pointer; }</style></head><body><a href=\"http://192.168.4.1/?servo=cw\" class=\"button\">Move Servo</a></body></html>";
+      String webpage = "<html><head><style>.button { background-color: #1c87c9; color: white;padding: 20px 34px; display: inline-block; margin: 4px 2px;}</style></head><body><a href=\"http://192.168.4.1/?servo=cw\" class=\"button\">Move Servo CW</a><br><a href=\"http://192.168.4.1/?servo=ccw\" class=\"button\">Move Servo CCW</a></body></html>";
       espsend(webpage);
       
       String closeCommand = "AT+CIPCLOSE=";  ////////////////close the socket connection////esp command 
