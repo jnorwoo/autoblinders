@@ -21,9 +21,6 @@ SoftwareSerial Serial1(4, 5); // RX | TX
 Servo myservo;  // create servo object to control a servo
 int pos = 0;    // variable to store the servo position
 int maxpos = 180;
-int STOP = 93;
-int CW = 0;
-int CCW = 180;
 
 void setup()
 {
@@ -117,9 +114,16 @@ String sendData(String command, const int timeout, boolean debug)
 
 void sweepServo() {
   if (trigger1){
-    myservo.write(CW);  // set servo to mid-point
-    delay(3000);
-    myservo.write(STOP);  // set servo to mid-point
+    for (pos = 0; pos <= maxpos; pos += 1) { // goes from 0 degrees to 180 degrees
+      // in steps of 1 degree
+      myservo.write(pos);              // tell servo to go to position in variable 'pos'
+      delay(3);                       // waits 15ms for the servo to reach the position
+    }
+  
+    for (pos = maxpos; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+      myservo.write(pos);              // tell servo to go to position in variable 'pos'
+      delay(3);                       // waits 15ms for the servo to reach the position
+    }
     trigger1 = 0;
   }
 }
