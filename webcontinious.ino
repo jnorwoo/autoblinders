@@ -48,7 +48,7 @@ float sensetemp() ///////function to sense temperature.
  }
  
 int connectionId;
-int trigger1 = 0;
+int trigger = 0;
 void loop()
 {
   if(Serial1.available())
@@ -62,7 +62,12 @@ void loop()
       if(Serial1.find("servo=cw"))
       { 
         Serial.println("recieving data from web browser trigger");
-        trigger1 = 1;
+        trigger = 1;
+      }
+      else if(Serial1.find("servo=ccw"))
+      { 
+        Serial.println("recieving data from web browser trigger");
+        trigger = 2;
       }
       String webpage = "<html><head><style>.button { background-color: #1c87c9; color: white;padding: 20px 34px; display: inline-block; margin: 4px 2px;}</style></head><body><a href=\"http://192.168.4.1/?servo=cw\" class=\"button\">Move Servo CW</a><br><a href=\"http://192.168.4.1/?servo=ccw\" class=\"button\">Move Servo CCW</a></body></html>";
       espsend(webpage);
@@ -113,10 +118,10 @@ String sendData(String command, const int timeout, boolean debug)
 }
 
 void sweepServo() {
-  if (trigger1){
+  if (trigger){
     myservo.write(0);
     delay(3000);
     myservo.write(93);
-    trigger1 = 0;
+    trigger = 0;
   }
 }
