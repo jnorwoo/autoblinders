@@ -59,12 +59,12 @@ void loop()
       delay(300);
       connectionId = Serial1.read()-48;
       Serial.println(connectionId);
-      if(Serial1.find("servo="))
+      if(Serial1.find("servo=cw"))
       { 
         Serial.println("recieving data from web browser trigger");
         trigger1 = 1;
       }
-      String webpage = "<html><head><style>.button { background-color: #1c87c9; border: none;color: white;padding: 20px 34px;text-align: center; text-decoration: none;display: inline-block; font-size: 20px;margin: 4px 2px;cursor: pointer; }</style></head><body><a href=\"http://192.168.4.1/?servo=on\" class=\"button\">Move Servo</a></body></html>";
+      String webpage = "<html><head><style>.button { background-color: #1c87c9; border: none;color: white;padding: 20px 34px;text-align: center; text-decoration: none;display: inline-block; font-size: 20px;margin: 4px 2px;cursor: pointer; }</style></head><body><a href=\"http://192.168.4.1/?servo=cw\" class=\"button\">Move Servo</a></body></html>";
       espsend(webpage);
       
       String closeCommand = "AT+CIPCLOSE=";  ////////////////close the socket connection////esp command 
