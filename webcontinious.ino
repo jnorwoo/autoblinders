@@ -26,8 +26,8 @@ void setup()
 {
   Serial.begin(9600);    ///////For Serial monitor 
   Serial1.begin(9600); ///////ESP Baud rate
-  pinMode(11,OUTPUT);    /////used if connecting a LED to pin 11
-  digitalWrite(11,LOW);
+  //pinMode(11,OUTPUT);    /////used if connecting a LED to pin 11
+  //digitalWrite(11,LOW);
  
   sendData("AT+RST\r\n",2000,DEBUG); // reset module
   sendData("AT+CWMODE=2\r\n",1000,DEBUG); // configure as access point
@@ -35,7 +35,7 @@ void setup()
   sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
   sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80
 
-  myservo.attach(3);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(8);  // attaches the servo on pin 9 to the servo object
 }
 
 
@@ -114,16 +114,9 @@ String sendData(String command, const int timeout, boolean debug)
 
 void sweepServo() {
   if (trigger1){
-    for (pos = 0; pos <= maxpos; pos += 1) { // goes from 0 degrees to 180 degrees
-      // in steps of 1 degree
-      myservo.write(pos);              // tell servo to go to position in variable 'pos'
-      delay(3);                       // waits 15ms for the servo to reach the position
-    }
-  
-    for (pos = maxpos; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-      myservo.write(pos);              // tell servo to go to position in variable 'pos'
-      delay(3);                       // waits 15ms for the servo to reach the position
-    }
+    myservo.write(0);
+    delay(3000);
+    myservo.write(93);
     trigger1 = 0;
   }
 }
